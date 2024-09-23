@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/Map"
+        android:title="Map"
+        android:icon="@drawable/baseline_map_24"/>
+    <item android:id="@+id/SportEvents"
+        android:title="Sport Events"
+        android:icon="@drawable/baseline_sports_24"/>
+    <item android:id="@+id/Leaderboard"
+        android:title="Leaderboard"
+        android:icon="@drawable/baseline_leaderboard_24"/>
+    <item android:id="@+id/Profile"
+        android:title="Profile"
+        android:icon="@drawable/baseline_person_24"/>
+</menu>
