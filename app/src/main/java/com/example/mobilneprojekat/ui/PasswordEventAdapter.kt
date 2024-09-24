@@ -6,9 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobilneprojekat.R
-import com.example.mobilneprojekat.data.ScoreDB
 
-class SportEventAdapter(private val users: List<String>): RecyclerView.Adapter<SportEventAdapter.ViewHolder>() {
+class PasswordEventAdapter(private val users: List<String>): RecyclerView.Adapter<PasswordEventAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(

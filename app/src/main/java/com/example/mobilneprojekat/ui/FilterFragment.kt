@@ -27,7 +27,7 @@ class FilterFragment : Fragment() {
 
         authorFilter = arguments?.getString("author")!!
         passwordTypesFilter = arguments?.getStringArrayList("PasswordTypes")!!
-        bandwidthFilter = arguments?.getString("outdoor")!!
+        bandwidthFilter = arguments?.getString("bandwidth")!!
         date = arguments?.getSerializable("date") as? Date
         radius = arguments?.getDouble("radius")!!
     }
@@ -41,9 +41,9 @@ class FilterFragment : Fragment() {
 
         val authorInput = view.findViewById<TextView>(R.id.authorsAF)
         authorInput.text = authorFilter
-        val publickCheck = view.findViewById<CheckBox>(R.id.publicAF)
+        val publicCheck = view.findViewById<CheckBox>(R.id.publicAF)
         if("Public" in passwordTypesFilter)
-            publickCheck.isChecked = true
+            publicCheck.isChecked = true
         val privateCheck = view.findViewById<CheckBox>(R.id.privateAF)
         if("Private" in passwordTypesFilter)
             privateCheck.isChecked = true
@@ -74,7 +74,7 @@ class FilterFragment : Fragment() {
 
             if(privateCheck.isChecked)
                 passwordTypesFilter.add("Private")
-            if(publickCheck.isChecked)
+            if(publicCheck.isChecked)
                 passwordTypesFilter.add("Public")
 
             authorFilter = authorInput.text.toString()

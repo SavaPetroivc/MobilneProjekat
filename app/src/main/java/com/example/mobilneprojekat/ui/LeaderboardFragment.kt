@@ -39,6 +39,7 @@ class LeaderboardFragment : Fragment() {
                 val layoutManager = LinearLayoutManager(context)
                 recyclerView = view.findViewById(R.id.leaderboardRV)
                 recyclerView.layoutManager = layoutManager
+                recyclerView.layoutManager = layoutManager
                 recyclerView.setHasFixedSize(true)
                 adapter = LeaderboardAdapter(leaderboard)
                 recyclerView.adapter = adapter

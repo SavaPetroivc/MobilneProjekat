@@ -66,9 +66,9 @@ class UserViewModel : ViewModel() {
     val passwordEvent: LiveData<PasswordEvent?>
         get() = _passwordEvent
 
-    private val _changedEvent = MutableLiveData<Boolean?>()
-    val changeEvent: LiveData<Boolean?>
-        get() = _changedEvent
+    private val _joinedEvent = MutableLiveData<Boolean?>()
+    val joinedEvent: LiveData<Boolean?>
+        get() = _joinedEvent
 
     private val _score = MutableLiveData<Score?>()
     val score: LiveData<Score?>
@@ -110,7 +110,7 @@ class UserViewModel : ViewModel() {
 
     fun updatePassword(password: String, passwordEventId: String){
         repository.changedPassword(password, passwordEventId, OnCompleteListener{task ->
-            _changedEvent.value = task.isSuccessful
+            _joinedEvent.value = task.isSuccessful
         })
     }
 
@@ -192,7 +192,7 @@ class UserViewModel : ViewModel() {
 
     fun joinEvent(username: String, passwordEventId: String){
         repository.joinEvent(username, passwordEventId, OnCompleteListener{ task ->
-            _changedEvent.value = task.isSuccessful
+            _joinedEvent.value = task.isSuccessful
         })
     }
 

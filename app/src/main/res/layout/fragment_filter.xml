@@ -32,7 +32,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="PrivateCBX"
                 tools:text="Private" />
 
             <CheckBox
@@ -40,7 +39,6 @@
                 android:layout_width="89dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="PublicCBX"
                 tools:text="Public" />
         </LinearLayout>
 
@@ -53,10 +51,10 @@
 
             <CheckBox
                 android:id="@+id/Bandwidth5ghzAF"
-                android:layout_width="wrap_content"
+                android:layout_width="51dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                tools:text="5 Ghz" />
+                android:text="5 Ghz" />
 
             <CheckBox
                 android:id="@+id/Bandwidht2AF"

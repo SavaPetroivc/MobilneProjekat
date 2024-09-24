@@ -1,12 +1,15 @@
 package com.example.mobilneprojekat.ui
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,12 +19,12 @@ import com.example.mobilneprojekat.data.Profile
 import com.example.mobilneprojekat.data.PasswordEvent
 import com.google.android.material.textfield.TextInputEditText
 
-class SportEventFragment : Fragment() {
+class PasswordEventFragment : Fragment() {
 
     private var passwordEventId: String = ""
     private var viewModel = UserViewModel()
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: SportEventAdapter
+    private lateinit var adapter: PasswordEventAdapter
     private var userProfile: Profile? = null
     private var uid: String? = null
     private var passwordEvent: PasswordEvent? = null
@@ -47,7 +50,7 @@ class SportEventFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_sport_event, container, false)
+        var view = inflater.inflate(R.layout.fragment_password_event, container, false)
 
         val ssidText = view.findViewById<TextView>(R.id.ssidSEF)
         val passwordText = view.findViewById<TextView>(R.id.passwordSEF)
@@ -76,7 +79,7 @@ class SportEventFragment : Fragment() {
                 recyclerView = view.findViewById(R.id.usersSEF)
                 recyclerView.layoutManager = layoutManager
                 recyclerView.setHasFixedSize(true)
-                adapter = SportEventAdapter(users)
+                adapter = PasswordEventAdapter(users)
                 recyclerView.adapter = adapter
             }
         })
@@ -84,16 +87,39 @@ class SportEventFragment : Fragment() {
         val change = view.findViewById<Button>(R.id.changeSEF)
         val newPassword = view.findViewById<TextInputEditText>(R.id.newPasswordTXT)
 
+        newPassword.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                if(!newPassword.text.toString().equals("")){
+                    change.isEnabled = true
+                }
+                else{
+                    change.isEnabled = false
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+        })
+
         change.setOnClickListener{
             if(userProfile!=null){
                 viewModel.updatePassword(newPassword.text.toString(), passwordEventId)
                 viewModel.joinEvent(userProfile!!.username, passwordEventId)
                 viewModel.updateScore(5.0, uid!!)
-
+                Toast.makeText(this.context,
+                    "Password changed successfully! ",
+                    Toast.LENGTH_SHORT).show()
             }
         }
 
-        viewModel.changeEvent.observe(viewLifecycleOwner, Observer { joined ->
+        viewModel.joinedEvent.observe(viewLifecycleOwner, Observer { joined ->
             if(joined != null && joined == true)
                 getParentFragmentManager().popBackStack()
         })

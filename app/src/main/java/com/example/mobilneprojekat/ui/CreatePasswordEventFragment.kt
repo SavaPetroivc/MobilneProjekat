@@ -55,16 +55,16 @@ class CreatePasswordEventFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_create_sport_event, container, false)
+        val view = inflater.inflate(R.layout.fragment_create_password_event, container, false)
 
-        var addPasswordEvent = view.findViewById<Button>(R.id.addSportEventCSE)
-        var sportSpinner = view.findViewById<Spinner>(R.id.spinnerCSE)
+        var addPasswordEvent = view.findViewById<Button>(R.id.addPasswordEventCSE)
+        var passwordSpinner = view.findViewById<Spinner>(R.id.spinnerCSE)
 
-        sportSpinner.adapter = ArrayAdapter(view.context, android.R.layout.simple_spinner_item, passwordTypes)
+        passwordSpinner.adapter = ArrayAdapter(view.context, android.R.layout.simple_spinner_item, passwordTypes)
 
-        sportSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        passwordSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                wifiType = "Other"
+                wifiType = "public"
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -74,9 +74,9 @@ class CreatePasswordEventFragment : Fragment() {
 
 
         addPasswordEvent.setOnClickListener{
-            val outdoorCheckBox = view.findViewById<CheckBox>(R.id.outdoorCSE)
-            val bandwidth = outdoorCheckBox.isChecked
-            val passwordText = view.findViewById<TextView>(R.id.aboutTextCSE)
+            val bandwidthCheckBox = view.findViewById<CheckBox>(R.id.bandwidhtCSE)
+            val bandwidth = bandwidthCheckBox.isChecked
+            val passwordText = view.findViewById<TextView>(R.id.passwordCSE)
             val password = passwordText.text.toString()
             val ssidText = view.findViewById<TextView>(R.id.ssidTextCSE)
             val ssid = ssidText.text.toString()

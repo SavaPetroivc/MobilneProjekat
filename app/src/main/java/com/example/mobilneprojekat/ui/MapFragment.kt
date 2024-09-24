@@ -46,11 +46,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     private var viewModel: UserViewModel = UserViewModel()
     private lateinit var passwordEvents: ArrayList<PasswordEventDB>
     private var authorFilter: String? = null
-    private var sportTypesFilter: ArrayList<String>? = null
+    private var wifiTypesFilter: ArrayList<String>? = null
     private var passwordFilter: String? = null
     private var date : Date? = null
     private var radius: Double? = null
-    private var sportEventsUsable: ArrayList<PasswordEventDB> = ArrayList<PasswordEventDB>()
+    private var passwordEventsUsable: ArrayList<PasswordEventDB> = ArrayList<PasswordEventDB>()
 
 
     companion object{
@@ -63,7 +63,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         viewModel.getPasswordEvents()
 
         authorFilter = arguments?.getString("author")
-        sportTypesFilter = arguments?.getStringArrayList("PasswordTypes")
+        wifiTypesFilter = arguments?.getStringArrayList("PasswordTypes")
         passwordFilter = arguments?.getString("outdoor")
         radius = arguments?.getDouble("radius")
         date = arguments?.getSerializable("date") as? Date
@@ -88,23 +88,23 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
                     val currentLatLng = LatLng(location.latitude, location.longitude)
 
                     mMap.clear()
-                    if(sportEventsUsable.isNotEmpty()){
+                    if(passwordEventsUsable.isNotEmpty()){
                         val myGeoPoint = GeoPoint(lastLocation.latitude, lastLocation.longitude)
 
-                        for(sportEvent in sportEventsUsable){
+                        for(passwordEvent in passwordEventsUsable){
                             if(radius!=null){
                                 if(radius!=0.0){
-                                    if(!isPointWithinRadius(myGeoPoint, sportEvent.location, radius!!))
+                                    if(!isPointWithinRadius(myGeoPoint, passwordEvent.location, radius!!))
                                         continue
                                 }
                             }
 
-//                            Log.d("Markeri", sportEvent.id)
+//                            Log.d("Markeri", passwordEvent.id)
                             val marker = mMap.addMarker(MarkerOptions()
-                            .position(LatLng(sportEvent.location.latitude, sportEvent.location.longitude))
-                            .title(sportEvent.wifiType))
+                            .position(LatLng(passwordEvent.location.latitude, passwordEvent.location.longitude))
+                            .title(passwordEvent.ssid))
 
-                            marker!!.tag = sportEvent.id
+                            marker!!.tag = passwordEvent.id
                         }
                     }
 
@@ -141,12 +141,12 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
             if(authorFilter==null)
                 authorFilter=""
             bundle.putString("author", authorFilter)
-            if(sportTypesFilter==null)
-                sportTypesFilter = ArrayList<String>()
-            bundle.putStringArrayList("PasswordTypes", sportTypesFilter)
+            if(wifiTypesFilter==null)
+                wifiTypesFilter = ArrayList<String>()
+            bundle.putStringArrayList("PasswordTypes", wifiTypesFilter)
             if(passwordFilter==null)
                 passwordFilter = ""
-            bundle.putString("outdoor", passwordFilter)
+            bundle.putString("bandwidth", passwordFilter)
             if(date!=null)
                 bundle.putSerializable("date", date)
             if(radius==null)
@@ -207,40 +207,40 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
                 passwordEvents = passwordEV
                 //val myGeoPoint = GeoPoint(lastLocation.latitude, lastLocation.longitude)
 
-                for(sportEvent in passwordEvents){
+                for(passwordEvent in passwordEvents){
 
                     if(authorFilter!=null){
-                        if(authorFilter!="" && sportEvent.author != authorFilter)
+                        if(authorFilter!="" && passwordEvent.author != authorFilter)
                             continue
                     }
-                    if(sportTypesFilter!=null){
-                        if(sportTypesFilter!!.isNotEmpty() && sportEvent.wifiType !in sportTypesFilter!!)
+                    if(wifiTypesFilter!=null){
+                        if(wifiTypesFilter!!.isNotEmpty() && passwordEvent.wifiType !in wifiTypesFilter!!)
                             continue
                     }
                     if(passwordFilter!=null){
                         if(passwordFilter!="") {
-                            if (passwordFilter == "Out" && !sportEvent.bandwidth)
+                            if (passwordFilter == "Out" && !passwordEvent.bandwidth)
                                 continue
-                            else if (passwordFilter == "In" && sportEvent.bandwidth)
+                            else if (passwordFilter == "In" && passwordEvent.bandwidth)
                                 continue
                         }
                     }
                     if(date!=null){
-                        if(date!!>sportEvent.dateAdded.toDate())
+                        if(date!!>passwordEvent.dateAdded.toDate())
                             continue
                     }
 //                    if(radius!=null){
 //                        if(radius!=0.0){
-//                            if(!isPointWithinRadius(myGeoPoint, sportEvent.location, radius!!))
+//                            if(!isPointWithinRadius(myGeoPoint, passwordEvent.location, radius!!))
 //                                continue
 //                        }
 //                    }
 
 //                    mMap.addMarker(MarkerOptions()
-//                        .position(LatLng(sportEvent.location.latitude, sportEvent.location.longitude))
+//                        .position(LatLng(passwordEvent.location.latitude, passwordEvent.location.longitude))
 //                        .title("Marker")
 //                      )
-                    sportEventsUsable.add(sportEvent)
+                    passwordEventsUsable.add(passwordEvent)
                 }
             }
         })
@@ -302,7 +302,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
 
             Log.d("MarkerFUN", marker.tag as String)
 
-            val fragment = SportEventFragment()
+            val fragment = PasswordEventFragment()
 
             val bundle = Bundle()
             bundle.putString("passwordEventId", marker.tag as String)

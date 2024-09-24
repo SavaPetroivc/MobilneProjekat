@@ -12,11 +12,11 @@ import com.example.mobilneprojekat.R
 import com.example.mobilneprojekat.UserViewModel
 import com.example.mobilneprojekat.data.PasswordEventDB
 
-class SportEventsBoardFragment : Fragment() {
+class PasswordEventsBoardFragment : Fragment() {
 
-    private lateinit var adapter: SportEventsBoardAdapter
+    private lateinit var adapter: PasswordEventsBoardAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var sportEvents: ArrayList<PasswordEventDB>
+    private lateinit var passwordEvents: ArrayList<PasswordEventDB>
 
     private var viewModel: UserViewModel = UserViewModel()
 
@@ -25,7 +25,7 @@ class SportEventsBoardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sport_events_board, container, false)
+        return inflater.inflate(R.layout.fragment_password_events_board, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,14 +33,14 @@ class SportEventsBoardFragment : Fragment() {
 
         viewModel.getPasswordEvents()
 
-        viewModel.passwordEvents.observe(viewLifecycleOwner, Observer { sportEv ->
-            if(sportEv != null) {
-                sportEvents = sportEv
+        viewModel.passwordEvents.observe(viewLifecycleOwner, Observer { passwordEv ->
+            if(passwordEv != null) {
+                passwordEvents = passwordEv
                 val layoutManager = LinearLayoutManager(context)
-                recyclerView = view.findViewById(R.id.sportEventsBoardRV)
+                recyclerView = view.findViewById(R.id.passwordEventsBoardRV)
                 recyclerView.layoutManager = layoutManager
                 recyclerView.setHasFixedSize(true)
-                adapter = SportEventsBoardAdapter(sportEvents)
+                adapter = PasswordEventsBoardAdapter(passwordEvents)
                 recyclerView.adapter = adapter
             }
         })

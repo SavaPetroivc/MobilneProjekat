@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.mobilneprojekat.R
 import com.example.mobilneprojekat.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.Map -> replaceFragment(MapFragment())
                 R.id.Leaderboard -> replaceFragment(LeaderboardFragment())
                 R.id.Profile -> replaceFragment(ProfileFragment())
-                R.id.SportEvents -> replaceFragment(SportEventsBoardFragment())
+                R.id.PasswordEvents -> replaceFragment(PasswordEventsBoardFragment())
 
                 else -> {
 
