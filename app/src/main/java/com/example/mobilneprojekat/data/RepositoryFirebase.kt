@@ -91,7 +91,7 @@ class RepositoryFirebase {
     }
 
     fun getPasswordEvent(passwordEventId: String, onCompleteListener: OnCompleteListener<DocumentSnapshot?>){
-        db.collection("passwordExlporer").document(passwordEventId).get()
+        db.collection("passwordExplorer").document(passwordEventId).get()
             .addOnCompleteListener(onCompleteListener)
     }
 
@@ -100,7 +100,7 @@ class RepositoryFirebase {
             .addOnCompleteListener(onCompleteListener)
     }
     fun joinEvent(username: String, passwordEventId: String, onCompleteListener: OnCompleteListener<Void>){
-        db.collection("passwordExlporer").document(passwordEventId).update("used", FieldValue.arrayUnion(username))
+        db.collection("passwordExplorer").document(passwordEventId).update("used", FieldValue.arrayUnion(username))
             .addOnCompleteListener(onCompleteListener)
     }
 

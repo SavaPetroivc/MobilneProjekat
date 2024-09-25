@@ -39,7 +39,12 @@ class PasswordEventsBoardAdapter(private val passwordEventDBS: ArrayList<Passwor
 
         holder.ssidText.text = currentItem.ssid
         holder.authorText.text = currentItem.author
-        holder.locationText.text = addressText.get(0).getAddressLine(0) + " " + addressText.get(0).getLocality()
+
+        if (addressText.isNotEmpty()) {
+            holder.locationText.text = addressText[0].getAddressLine(0) + " " + addressText[0].getLocality()
+        } else {
+            holder.locationText.text = "Location not available"
+        }
     }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){

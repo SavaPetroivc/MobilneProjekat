@@ -32,14 +32,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                tools:text="Private" />
+                android:text="Private" />
 
             <CheckBox
                 android:id="@+id/publicAF"
                 android:layout_width="89dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                tools:text="Public" />
+                android:text="Public" />
         </LinearLayout>
 
         <LinearLayout
