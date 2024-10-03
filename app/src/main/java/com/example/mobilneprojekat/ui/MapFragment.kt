@@ -47,7 +47,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     private lateinit var passwordEvents: ArrayList<PasswordEventDB>
     private var authorFilter: String? = null
     private var wifiTypesFilter: ArrayList<String>? = null
-    private var passwordFilter: String? = null
+    private var bandwidthFilter: String? = null
     private var date : Date? = null
     private var radius: Double? = null
     private var passwordEventsUsable: ArrayList<PasswordEventDB> = ArrayList<PasswordEventDB>()
@@ -64,7 +64,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
 
         authorFilter = arguments?.getString("author")
         wifiTypesFilter = arguments?.getStringArrayList("PasswordTypes")
-        passwordFilter = arguments?.getString("outdoor")
+        bandwidthFilter = arguments?.getString("bandwidth")
         radius = arguments?.getDouble("radius")
         date = arguments?.getSerializable("date") as? Date
     }
@@ -144,9 +144,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
             if(wifiTypesFilter==null)
                 wifiTypesFilter = ArrayList<String>()
             bundle.putStringArrayList("PasswordTypes", wifiTypesFilter)
-            if(passwordFilter==null)
-                passwordFilter = ""
-            bundle.putString("bandwidth", passwordFilter)
+            if(bandwidthFilter==null)
+                bandwidthFilter = ""
+            bundle.putString("bandwidth", bandwidthFilter)
             if(date!=null)
                 bundle.putSerializable("date", date)
             if(radius==null)
@@ -217,11 +217,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
                         if(wifiTypesFilter!!.isNotEmpty() && passwordEvent.wifiType !in wifiTypesFilter!!)
                             continue
                     }
-                    if(passwordFilter!=null){
-                        if(passwordFilter!="") {
-                            if (passwordFilter == "Out" && !passwordEvent.bandwidth)
+                    if(bandwidthFilter!=null){
+                        if(bandwidthFilter!="") {
+                            if (bandwidthFilter == "5Ghz" && !passwordEvent.bandwidth)
                                 continue
-                            else if (passwordFilter == "In" && passwordEvent.bandwidth)
+                            else if (bandwidthFilter == "2.4Ghz" && passwordEvent.bandwidth)
                                 continue
                         }
                     }
